@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f0e7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="字间">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>字间 · 私人文学编辑部</title>
+<style>
+:root{--paper:#f5f0e7;--card:#fffdf8;--ink:#40352b;--muted:#8c7d6d;--line:#e8dfd2;--accent:#806448;--soft:#eee5d8;--green:#66765d;--shadow:0 8px 30px #49351b0d}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+main{max-width:720px;margin:auto;padding:20px 17px 42px}.top{display:flex;justify-content:space-between;align-items:center;margin:6px 0 24px}.brand{font-family:Georgia,serif;font-size:27px;letter-spacing:3px;font-weight:700}.tag{font-size:11px;color:var(--muted);letter-spacing:1px}.hero{background:#e9dfd0;border-radius:22px;padding:23px 21px;margin-bottom:18px}.eyebrow{font-size:11px;letter-spacing:2px;color:#816b54}.hero h1{font-family:Georgia,"Songti SC",serif;font-size:27px;font-weight:500;margin:10px 0 8px}.hero p{color:#756451;font-size:13px;margin:0 0 19px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#f5efe6a8;border-radius:13px;padding:11px}.stat b{display:block;font-family:Georgia,serif;font-size:24px;font-weight:500}.stat span{font-size:11px;color:#806f5e}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:18px;margin:14px 0;box-shadow:var(--shadow)}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.sectionhead h2{font-family:Georgia,"Songti SC",serif;font-size:19px;font-weight:500;margin:0}.date{font-size:12px;color:var(--muted)}
+label{display:block;font-size:12px;color:var(--muted);margin:13px 0 7px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:11px;background:#fffefa;color:var(--ink);font:inherit;padding:12px;outline:none}input:focus,textarea:focus{border-color:#b69b7a}textarea{min-height:210px;line-height:1.75;resize:vertical}button{border:0;border-radius:12px;padding:12px 15px;font:inherit;font-size:13px;cursor:pointer}.primary{background:var(--accent);color:white;width:100%;margin-top:13px}.secondary{background:var(--soft);color:var(--ink)}.danger{background:#f5e7e2;color:#8b5142}.row{display:flex;gap:9px;align-items:center}.row>*{flex:1}.hint{font-size:11px;color:var(--muted);margin-top:8px}.saved{font-size:11px;color:var(--green);text-align:right;min-height:15px}.entry{border-top:1px solid var(--line);padding:13px 0}.entry:first-child{border-top:0}.entry h3{font-size:14px;margin:0 0 5px}.entry p{font-size:12px;color:var(--muted);margin:0;white-space:pre-wrap;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.entrymeta{font-size:10px;color:#a09181;margin-top:7px}.empty{font-size:12px;color:var(--muted);padding:12px 0}.footer{text-align:center;color:#a09181;font:11px Georgia,serif;letter-spacing:1px;margin:24px 0}.hidden{display:none!important}.notice{background:#f0e9de;border-radius:12px;padding:12px;font-size:12px;color:#705e4d;line-height:1.65}
+.switchBtn{background:#eee5d8;color:#5e4a36;border:1px solid #d9c9b5;padding:9px 12px;font-size:12px}.sleepScreen{display:none;background:#fffdf8;border:1px solid var(--line);border-radius:22px;padding:30px 22px;text-align:center;margin-top:22px;box-shadow:var(--shadow)}.sleepScreen h1{font-family:Georgia,"Songti SC",serif;font-weight:500;font-size:25px}.sleepScreen p{color:var(--muted);font-size:13px;line-height:1.8}.sleep .hero,.sleep main>section,.sleep .footer{display:none!important}.sleep .sleepScreen{display:block!important}
+</style>
+</head>
+<body>
+<main>
+ <div class="top"><div><div class="brand">字间</div><div class="tag">MY PRIVATE LITERARY JOURNAL</div></div><div style="text-align:right"><span class="tag" id="powerLabel">已开启</span><br><button class="switchBtn" id="powerToggle" type="button">关闭字间</button></div></div>
+ <section class="sleepScreen" id="sleepScreen"><div class="eyebrow">A QUIET PLACE BETWEEN WORDS</div><h1>字间暂时休眠。</h1><p>你的作品仍安静地保存在这台设备里。<br>想继续写作时，重新开启字间即可。</p><button class="primary" id="wakeBtn" type="button">重新开启字间</button></section>
+ <section class="hero">
+  <div class="eyebrow">WRITE A LITTLE · GROW A LOT</div>
+  <h1>让灵感，留下痕迹。</h1>
+  <p>不必每天惊艳，只要每天留下几行。</p>
+  <div class="stats">
+   <div class="stat"><b id="streak">0</b><span>连续打卡</span></div>
+   <div class="stat"><b id="words">0</b><span>累计字数</span></div>
+   <div class="stat"><b id="days">0</b><span>创作篇数</span></div>
+  </div>
+ </section>
+ <section class="panel">
+  <div class="sectionhead"><h2>今日创作</h2><span class="date" id="today"></span></div>
+  <label for="title">作品标题</label><input id="title" placeholder="给今天的片段取个名字">
+  <label for="draft">写下今天的故事</label><textarea id="draft" placeholder="在这里写下你的小说片段……"></textarea>
+  <div class="row"><span class="hint" id="count">0 字</span><span class="saved" id="saveState">自动暂存于本机</span></div>
+  <button class="primary" id="save">保存今日作品并打卡</button>
+  <div class="row">
+   <button class="secondary" id="copy">复制作品，交给 AI 编辑</button>
+   <button class="secondary" id="clear">清空编辑区</button>
+  </div>
+  <p class="hint">点评方式：保存后复制作品，粘贴到 ChatGPT 对话即可获得综合型编辑点评。</p>
+ </section>
+ <section class="panel">
+  <div class="sectionhead"><h2>我的作品档案</h2><span class="date">仅此设备</span></div>
+  <div id="entries"><div class="empty">还没有作品。今天写下第一段吧。</div></div>
+ </section>
+ <section class="panel">
+  <div class="sectionhead"><h2>数据与备份</h2></div>
+  <div class="notice">作品保存在当前浏览器的本地存储中，不会自动上传到云端。请定期导出备份；清除 Safari 网站数据、卸载或更换设备可能导致记录丢失。</div>
+  <div class="row" style="margin-top:12px"><button class="secondary" id="export">导出备份</button><button class="secondary" id="importBtn">导入备份</button></div>
+  <input type="file" id="importFile" accept="application/json" class="hidden">
+ </section>
+ <div class="footer">字间 · 一字一句，慢慢成为作家。</div>
+</main>
+<script>
+const KEY='zijian_local_v1';
+const POWER_KEY='zijian_power_v1';
+function setPower(on){localStorage.setItem(POWER_KEY,on?'on':'off');document.body.classList.toggle('sleep',!on);$('powerLabel').textContent=on?'已开启':'休眠中';$('powerToggle').textContent=on?'关闭字间':'开启字间';}
+function powerOn(){return localStorage.getItem(POWER_KEY)!=='off';}
+let entries=load();
+const $=id=>document.getElementById(id);
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+$('powerToggle').onclick=()=>setPower(!powerOn());
+$('wakeBtn').onclick=()=>setPower(true);
+setPower(powerOn());
+function persist(){localStorage.setItem(KEY,JSON.stringify(entries))}
+function dateKey(d=new Date()){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(){
+ const today=dateKey();$('today').textContent=today;
+ const total=entries.reduce((n,e)=>n+(e.text||'').replace(/\s/g,'').length,0);
+ $('words').textContent=total.toLocaleString();$('days').textContent=entries.length;
+ const set=new Set(entries.map(e=>e.date));let streak=0,d=new Date();
+ if(!set.has(dateKey(d)))d.setDate(d.getDate()-1);
+ while(set.has(dateKey(d))){streak++;d.setDate(d.getDate()-1)}
+ $('streak').textContent=streak;
+ $('entries').innerHTML=entries.length?entries.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(e=>`<div class="entry"><h3>${esc(e.title||'未命名片段')}</h3><p>${esc(e.text)}</p><div class="entrymeta">${e.date} · ${(e.text||'').replace(/\s/g,'').length} 字</div><div class="row" style="margin-top:9px"><button class="secondary" onclick="editEntry('${e.id}')">查看 / 编辑</button><button class="danger" onclick="deleteEntry('${e.id}')">删除</button></div></div>`).join(''):'<div class="empty">还没有作品。今天写下第一段吧。</div>';
+}
+let timer;
+function draftChanged(){ $('count').textContent=$('draft').value.replace(/\s/g,'').length+' 字';$('saveState').textContent='正在暂存…';clearTimeout(timer);timer=setTimeout(()=>{localStorage.setItem('zijian_draft',JSON.stringify({title:$('title').value,text:$('draft').value,date:dateKey()}));$('saveState').textContent='已暂存于本机';},350)}
+$('draft').addEventListener('input',draftChanged);$('title').addEventListener('input',draftChanged);
+try{const d=JSON.parse(localStorage.getItem('zijian_draft')||'null');if(d&&d.date===dateKey()){$('title').value=d.title||'';$('draft').value=d.text||''}}catch(e){}
+$('save').onclick=()=>{const text=$('draft').value.trim();if(!text){alert('先写下一小段文字吧。');return}const date=dateKey();let old=entries.find(e=>e.date===date&&e.id===window.currentId);if(!old)old=entries.find(e=>e.date===date&&e.title===$('title').value.trim());if(old){old.title=$('title').value.trim()||'未命名片段';old.text=text}else{entries.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),date,title:$('title').value.trim()||'未命名片段',text})}persist();localStorage.removeItem('zijian_draft');window.currentId=null;render();$('saveState').textContent='今日作品已保存';alert('今天的创作已打卡。写得真好，继续积累。')};
+$('copy').onclick=async()=>{const payload=`请以综合型小说编辑的身份，以温柔但犀利、不敷衍夸奖的风格点评以下作品。请先总结阅读感受，再分析文学亮点、具体问题、人物与情节表现，并给出可执行的修改建议。不要擅自改写原文。\n\n标题：${$('title').value||'未命名片段'}\n\n${$('draft').value}`;if(! $('draft').value.trim()){alert('请先写下作品内容。');return}try{await navigator.clipboard.writeText(payload);alert('已复制。打开 ChatGPT 粘贴即可请编辑点评。')}catch(e){alert('当前浏览器不允许自动复制，请手动复制文本。')}};
+$('clear').onclick=()=>{if(confirm('清空当前编辑区？已保存的作品不会删除。')){$('title').value='';$('draft').value='';localStorage.removeItem('zijian_draft');$('count').textContent='0 字'}};
+window.editEntry=id=>{const e=entries.find(x=>x.id===id);if(!e)return;window.currentId=e.id;$('title').value=e.title;$('draft').value=e.text;draftChanged();window.scrollTo({top:0,behavior:'smooth'})};
+window.deleteEntry=id=>{if(confirm('确定删除这篇作品吗？此操作无法撤销。')){entries=entries.filter(e=>e.id!==id);persist();render()}};
+$('export').onclick=()=>{const blob=new Blob([JSON.stringify({app:'字间',version:1,entries},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='字间备份-'+dateKey()+'.json';a.click();URL.revokeObjectURL(a.href)};
+$('importBtn').onclick=()=>$('importFile').click();
+$('importFile').onchange=async ev=>{const f=ev.target.files[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(!Array.isArray(obj.entries))throw Error();if(confirm('导入将合并备份中的作品，日期和标题相同的作品可能出现重复。继续吗？')){for(const e of obj.entries)if(e.text&&e.date)entries.push({...e,id:String(Date.now())+Math.random()});persist();render();alert('备份导入完成。')}}catch(e){alert('无法读取该备份文件。')}ev.target.value=''};
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+</script>
+</body></html>
